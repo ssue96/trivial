@@ -14,6 +14,7 @@
  1. 쿼리 문장 분석  
  2. 컴파일  
  3. 실행  
+ 
  을 하고 prepared statement는 처음 한 번만 위의 단계를 거친 후 캐시에 담아 재사용 하는 것이다.  
  (물론 sql injection을 회피할 수도 있다.  
  If the original statement template is not derived from external input, SQL injection cannot occur.  
@@ -31,7 +32,7 @@
 ### 참고  
 **node-mysql sql injection prevention**  
 https://github.com/mysqljs/mysql#escaping-query-values  
-https://github.com/mysqljs/sqlstring/blob/master/lib/SqlString.js 
+https://github.com/mysqljs/sqlstring/blob/master/lib/SqlString.js   
 **mysql prepared statement**  
 https://www.w3schools.com/php/php_mysql_prepared_statements.asp  
 https://devbox.tistory.com/entry/Comporison
