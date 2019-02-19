@@ -18,4 +18,12 @@ $grep 'password' /var/log/mysqld.log
 ```
 mysql>set password=password('qwert123');  
 mysql>flush privileges;  
+```  
+
+4. mysql 서비스 시작
+```
+$ service mysql start  
+$ service mysql stop  
+$ service mysql restart  
+$ service mysql status  
 ```
