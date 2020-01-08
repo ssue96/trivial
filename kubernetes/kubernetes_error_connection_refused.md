@@ -11,5 +11,5 @@ kubernetes setup은 root 계정으로 하고 실행은 다른 계정에서 했�
     $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config  
     $ sudo chown $(id -u):$(id -g) $HOME/.kube/config  
 
-**참조**
+**참조**  
 https://github.com/kubernetes/kubernetes/issues/50295  
