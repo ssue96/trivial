@@ -1,0 +1,38 @@
+1. git 브랜치에서 demo fork
+2. cd hello-cloudbuild 에서 demo 앱 배포
+(helm 설정, tiller 등 다 되어있다고 가정)
+helm install --name demo ./k8s/demo/
+service 생성 확인 후 접속
+kubectl port-forward service/demo-service 9999:8888
+curl http://localhost:9999
+>hello, 世界
+
+3. 빌드 트리거 생성
+//cloudbuild.yaml 실행 >트리거에서 설정했으므로 지금은 실행시키는 것 아닌 것 같음..
+(명령어는 메모장에..)
+https://github.com/apps/google-cloud-build 에서 install 후 repository 설정>cloud build console에서 빌드 트리거 생성
+(자세한 설명 메모장 참고)
+
+4. 트리거 테스트
+hello-> hola로 변경 후 클라우드 빌드 트리거 자동 실행 확인(난 hi로 했음)
+git checkout -b hola
+git push origin hola
+
+빌드 성공 확인 
+
+5. CD 파이프라인에서 배포 - 디플로이 트리거 생성
+//cloudbuild-deploy.yaml 실행>트리거에서 설정했으므로 지금은 실행시키는 것 아닌 것 같음..
+명령어는 메모장에..
+cloud build console에서 디플로이 트리거 생성
+(자세한 설명 메모장 참고)
+
+6. 트리거 테스트
+staging과 production tag 붙여서 git에 push
+자동 배포 확인
+kubectl get service -n production-demo
+kubectl get service -n staging-demo
+
+7. 버전 업 테스트
+kubectl --namespace port-forward service/demo-service 9999:8888
+curl http://localhost:9999
+>hi, 世界
