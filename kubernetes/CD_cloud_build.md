@@ -33,9 +33,20 @@ $ kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-
 ```
 $ kubectl create clusterrolebinding tiller-admin-binding --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 ```
-`helm3부터는 tiller 사용 x`
+```
+helm3부터는 tiller 사용 x  
+v2는 클러스터에 helm chart 통합관리와 설치를 위해 Tiller라는 Pod를 사용했다.   
+따라서 cluster-admin 권한을 부여했는데, production 환경까지 생각한다면 보안에는 좋지 않다.   
+helm 클라이언트와 tiller는 gRPC를 사용해 통신하기 때문에 gRPC 포트가 디폴트로 열려있다. 보안 없이..   
+따라서 공격자가 악의적인 의도로 내부 네트워크를 타고 gRPC 포트에 요청을 보내면 아무런   
+인증 과정 없이 cluster-admin 권한을 사용할 수 있게 된다.   
+v3은 Tiller를 완전히 삭제하고 쿠버네티스 API를 사용해 helm chart를 쿠버네티스에 저장한다.   
+chart를 설치하는 RBAC 권한은 사용자가 사용한 kubeconfig 파일을 따라간다.  
 
+참고 
+https://kycfeel.github.io/2019/12/25/Helm-v2-%EC%97%90%EC%84%9C-v3-%EB%A1%9C-%EB%A7%88%EC%9D%B4%EA%B7%B8%EB%A0%88%EC%9D%B4%EC%85%98-%ED%95%98%EA%B8%B0/  
 
+```
 **helm 초기화** 
 ```
 $ ./helm init --service-account=tiller
